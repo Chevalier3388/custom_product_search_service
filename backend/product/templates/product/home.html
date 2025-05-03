@@ -1,0 +1,10 @@
+<!-- backend/product/templates/product/home.html -->
+{% extends 'product/base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <h1>Добро пожаловать на сайт поиска продуктов!</h1>
+    <p>Здесь вы можете найти информацию о различных продуктах.</p>
+    <p><a href="{% url 'search_product' %}">Перейти к поиску продукта</a></p>
+{% endblock %}

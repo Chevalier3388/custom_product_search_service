@@ -1,0 +1,26 @@
+# Используем официальный образ Python
+FROM python:3.12
+
+# Устанавливаем рабочую директорию в контейнере
+WORKDIR /app
+
+# Копируем файл зависимостей (requirements.txt) в контейнер
+COPY ../../backend/requirements.txt .
+
+# Устанавливаем зависимости из requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Копируем остальные файлы проекта в контейнер
+#COPY ../backend app/
+
+# Копируем consumer.py из kafka/consumers
+#COPY ../../kafka/consumers/consumer.py /app/kafka/consumers/
+
+# Копируем ВСЮ структуру проекта внутрь контейнера
+COPY ../../ ./
+
+ENV PYTHONPATH=/app
+
+# Команда для запуска консьюмера
+CMD ["python", "/app/kafka/consumers/consumer.py"]
+

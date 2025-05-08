@@ -37,6 +37,11 @@ def get_product_from_cache(product_name):
         logging.error(f"Ошибка при получении данных из Redis: {e}")
         raise
 
+
+
+
+
+
 def save_product_to_cache(product_name, data, ttl=3600):
     """
     Сохраняем данные продукта в Redis

@@ -4,10 +4,10 @@ from time import sleep           # Для имитации задержки об
 
 
 # Импортируем функцию сохранения данных в Redis
-from backend.product.services.redis_service import save_product_to_cache
+from redis_service.redis_service import save_product_to_cache
 
 # Импортируем функцию получения Kafka consumer'а
-from backend.product.services.kafka_service import get_consumer
+from kafka_service.kafka_service import get_consumer
 
 
 # Функция обработки одного Kafka-сообщения

@@ -6,11 +6,11 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 # Здесь задаём настройки Kafka напрямую в коде
-KAFKA_BOOTSTRAP_SERVERS = [
-    'localhost:9093',    # основной
-    # '127.0.0.1:9093',    # на всякий случай
-    # 'localhost:9092',    # если где-то ещё слушает старый порт
-]
+# KAFKA_BOOTSTRAP_SERVERS = [
+#     'kafka:9092',
+#     "localhost:9092",
+#     "172.26.0.4:9092"
+# ]
 KAFKA_PRODUCT_REQUESTS_TOPIC = 'product_requests'  # Тема для consumer
 
 def get_producer():
@@ -19,7 +19,7 @@ def get_producer():
     """
     try:
         producer = KafkaProducer(
-            bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
+            bootstrap_servers="kafka:9092",
             value_serializer=lambda v: json.dumps(v).encode('utf-8')
         )
         logging.info("Kafka Producer создан успешно")
@@ -35,7 +35,7 @@ def get_consumer():
     try:
         consumer = KafkaConsumer(
             KAFKA_PRODUCT_REQUESTS_TOPIC,
-            bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
+            bootstrap_servers="kafka:9092",
             auto_offset_reset='earliest',
             enable_auto_commit=True,
             group_id='product-consumers',

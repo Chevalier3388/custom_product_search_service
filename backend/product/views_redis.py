@@ -1,11 +1,9 @@
 # product/views_redis.py
 
 
-from django.conf import settings
-
 from django.shortcuts import render
-from .services.redis_service import get_product_from_cache, save_product_to_cache
-from .services.kafka_service import send_product_request_to_kafka
+from redis_service.redis_service import get_product_from_cache
+from kafka_service.kafka_service import send_product_request_to_kafka, KAFKA_PRODUCT_REQUESTS_TOPIC
 
 
 
@@ -25,7 +23,7 @@ def get_product(request, product_name):
                 return render(request, 'product/search_product.html',
                               {'product': product_data, 'product_name': product_name})
 
-            send_product_request_to_kafka(settings.KAFKA_PRODUCT_REQUESTS_TOPIC, {"product_name": product_name})
+            send_product_request_to_kafka(KAFKA_PRODUCT_REQUESTS_TOPIC, {"product_name": product_name})
             return render(request, 'product/search_product.html',
                           {'message': 'Продукт в обработке. Попробуйте снова через несколько секунд.'})
 

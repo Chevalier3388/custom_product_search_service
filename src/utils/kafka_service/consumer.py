@@ -1,6 +1,5 @@
-import json                      # Для сериализации и десериализации данных в JSON
-from time import sleep           # Для имитации задержки обработки
-
+import json  # Для сериализации и десериализации данных в JSON
+from time import sleep  # Для имитации задержки обработки
 
 
 # Импортируем функцию сохранения данных в Redis
@@ -13,7 +12,7 @@ from utils.kafka_service.kafka_service import get_consumer
 # Функция обработки одного Kafka-сообщения
 def process_message(message):
     data = message.value  # Получаем данные сообщения (предполагается JSON)
-    product_name = data.get('product_name')  # Извлекаем имя продукта
+    product_name = data.get("product_name")  # Извлекаем имя продукта
 
     if not product_name:
         print("⚠️ Пропущено сообщение без 'product_name'")
@@ -24,9 +23,9 @@ def process_message(message):
 
     # Создаём пример данных продукта
     product_data = {
-        'name': product_name,
-        'price': '99.99',
-        'description': f'{product_name} — пример описания'
+        "name": product_name,
+        "price": "99.99",
+        "description": f"{product_name} — пример описания",
     }
 
     try:

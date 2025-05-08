@@ -1,28 +1,28 @@
 import redis
 import logging
 
+from .settings import settings
+
 # Логирование для ошибок
 logging.basicConfig(level=logging.INFO)
 
 # Здесь задаём настройки Redis напрямую в коде
 # todo: Подтягивать из settings.REDIS_HOST, etc
 
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
-REDIS_DB = 0
+REDIS_HOST = settings.REDIS_HOST
+REDIS_PORT = settings.REDIS_PORT
+REDIS_DB = settings.REDIS_DB
 
 # Настроим Redis с обработкой ошибок
 try:
     redis_client = redis.StrictRedis(
-        host=REDIS_HOST,
-        port=REDIS_PORT,
-        db=REDIS_DB,
-        decode_responses=True
+        host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB, decode_responses=True
     )
     logging.info("Подключение к Redis успешно установлено")
 except Exception as e:
     logging.error(f"Ошибка подключения к Redis: {e}")
     raise
+
 
 def get_product_from_cache(product_name):
     """
@@ -38,10 +38,6 @@ def get_product_from_cache(product_name):
     except Exception as e:
         logging.error(f"Ошибка при получении данных из Redis: {e}")
         raise
-
-
-
-
 
 
 def save_product_to_cache(product_name, data, ttl=3600):

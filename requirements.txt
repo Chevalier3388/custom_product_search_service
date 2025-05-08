@@ -11,4 +11,7 @@ pluggy==1.5.0
 pytest==8.3.5
 pytest-django==4.11.1
 gunicorn
+pydantic==2.11.4
+pydantic_core==2.33.2
+pydantic-settings==2.9.1
 

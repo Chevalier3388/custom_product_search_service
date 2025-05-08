@@ -14,6 +14,8 @@ from pathlib import Path
 import environ
 import os
 
+from utils.settings import settings
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Инициализируем переменные окружения
@@ -136,7 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',  # Указывает на локальный Redis
+        'LOCATION': f'redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}/{settings.REDIS_DB}',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }

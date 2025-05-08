@@ -4,10 +4,10 @@ from time import sleep           # Для имитации задержки об
 
 
 # Импортируем функцию сохранения данных в Redis
-from redis_service.redis_service import save_product_to_cache
+from utils.redis_service import save_product_to_cache
 
 # Импортируем функцию получения Kafka consumer'а
-from kafka_service.kafka_service import get_consumer
+from utils.kafka_service.kafka_service import get_consumer
 
 
 # Функция обработки одного Kafka-сообщения
@@ -39,7 +39,7 @@ def process_message(message):
 
 
 # Основная точка входа
-def main():
+def launch_consumer():
     consumer = get_consumer()  # Получаем Kafka consumer
     print("🎧 Запуск консюмера...")  # Сообщаем о запуске
 
@@ -50,8 +50,3 @@ def main():
         except Exception as e:
             # Общий обработчик ошибок на случай проблем при обработке
             print(f"❌ Ошибка при обработке сообщения: {e}")
-
-
-# Запускаем main(), если скрипт запущен напрямую
-if __name__ == "__main__":
-    main()

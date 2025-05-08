@@ -11,13 +11,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Копирование всех файлов проекта
-COPY . .
-
+COPY src .
 
 ENV PYTHONPATH=/app
 
-# Открываем порт, который будет использовать gunicorn
-EXPOSE 8000
-
-# Команда запуска сервера Django через gunicorn
-CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000"]
+#EXPOSE 8000
+# CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000"]

@@ -2,6 +2,8 @@ from kafka import KafkaProducer, KafkaConsumer
 import json
 import logging
 
+from utils.settings import settings
+
 # Логирование для ошибок подключения и отправки/получения сообщений
 logging.basicConfig(level=logging.INFO)
 
@@ -19,7 +21,7 @@ def get_producer():
     """
     try:
         producer = KafkaProducer(
-            bootstrap_servers="kafka:9092",
+            bootstrap_servers=settings.KAFKA_BOOTSTRAP_SERVERS,
             value_serializer=lambda v: json.dumps(v).encode('utf-8')
         )
         logging.info("Kafka Producer создан успешно")
@@ -35,7 +37,7 @@ def get_consumer():
     try:
         consumer = KafkaConsumer(
             KAFKA_PRODUCT_REQUESTS_TOPIC,
-            bootstrap_servers="kafka:9092",
+            bootstrap_servers=settings.KAFKA_BOOTSTRAP_SERVERS,
             auto_offset_reset='earliest',
             enable_auto_commit=True,
             group_id='product-consumers',

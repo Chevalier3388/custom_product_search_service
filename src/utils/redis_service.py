@@ -5,6 +5,8 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 # Здесь задаём настройки Redis напрямую в коде
+# todo: Подтягивать из settings.REDIS_HOST, etc
+
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 0

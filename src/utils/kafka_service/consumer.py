@@ -25,7 +25,7 @@ def process_message(message):
     product_data = {
         "name": product_name,
         "price": "99.99",
-        "description": f"{product_name} — пример описания",
+        "description": f"{product_name}",
     }
 
     try:

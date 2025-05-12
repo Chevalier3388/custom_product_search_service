@@ -15,7 +15,9 @@
         <p>{{ message }}</p>
     {% endif %}
 
-   <p>Передано имя продукта: {{ product_name }}</p>
+    {% if product %}
+        <p>Передано имя продукта: {{ product_name }}</p>
+    {% endif %}
     {% if product %}
         <h2>Результат поиска:</h2>
         <p>{{ product }}</p>

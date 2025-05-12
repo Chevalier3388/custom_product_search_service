@@ -4,10 +4,13 @@ ENV_FILENAME = "../../.env"
 
 
 class Settings(BaseSettings):
-    REDIS_HOST: str = "localhost"
+    REDIS_HOST: str = "redis_cache"
     REDIS_PORT: int = 6379
     REDIS_DB: int = 0
-    KAFKA_BOOTSTRAP_SERVERS: str = "kafka:9092"
+    KAFKA_BOOTSTRAP_SERVERS: list = [
+        "kafka:9092",
+        "localhost:9093",
+    ]
     KAFKA_PRODUCT_REQUESTS_TOPIC: str = "product_requests"
 
     class Config:

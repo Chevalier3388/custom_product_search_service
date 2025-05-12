@@ -2,9 +2,9 @@
 
 from django.shortcuts import render
 
-from src.utils.kafka_service.kafka_service import send_product_request_to_kafka
-from src.utils.redis_service import get_product_from_cache
-from src.utils.settings import settings
+from utils.kafka_service.kafka_service import send_product_request_to_kafka
+from utils.redis_service import get_product_from_cache
+from utils.settings import settings
 
 
 

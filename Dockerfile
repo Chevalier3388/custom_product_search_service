@@ -11,9 +11,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Копируем все файлы проекта
-COPY src /app/src
+COPY src /app
 
-ENV PYTHONPATH=/app/src
+ENV PYTHONPATH=/app
 
 
 #EXPOSE 8000

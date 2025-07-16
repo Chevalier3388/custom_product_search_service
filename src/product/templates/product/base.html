@@ -1,0 +1,29 @@
+<!-- backend/product/templates/product/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Django Project{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'get_product' %}">Поиск продукта</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        {% block content %}
+        <!-- Содержимое страницы будет вставляться сюда -->
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 My Django Project</p>
+    </footer>
+</body>
+</html>

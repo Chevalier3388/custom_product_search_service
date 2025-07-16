@@ -1,0 +1,71 @@
+version: "3.8"
+services:
+  web:
+    image: dj_app_img
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django_app
+    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
+
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    networks:
+      - app_network
+
+  redis:
+    image: redis:7.2
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+    networks:
+      - app_network
+
+
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181  # Порт, по которому будет доступен Zookeeper
+    ports:
+      - "2181:2181"  # Прокси порт Zookeeper
+    networks:
+      - app_network
+
+  kafka:
+    image: wurstmeister/kafka:latest
+    container_name: kafka
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092, EXTERNAL://localhost:9093
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:9092, EXTERNAL://0.0.0.0:9093
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT, EXTERNAL:PLAINTEXT
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    depends_on:
+      - zookeeper  # Kafka будет запускаться только после Zookeeper
+    networks:
+      - app_network
+
+
+  consumer:
+    container_name: consumer
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python /app/launch_consumer.py
+    depends_on:
+      - kafka
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    external: true

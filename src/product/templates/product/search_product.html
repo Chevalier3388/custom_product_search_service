@@ -1,0 +1,25 @@
+<!-- backend/product/templates/product/search_product.html -->
+{% extends 'product/base.html' %}
+
+{% block title %}Поиск продукта{% endblock %}
+
+{% block content %}
+    <h1>Поиск продукта</h1>
+    <form method="get" action="{% url 'get_product' %}">
+        <label for="product_name">Введите имя продукта:</label>
+        <input type="text" id="product_name" name="product_name" required>
+        <button type="submit">Найти</button>
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if product %}
+        <p>Передано имя продукта: {{ product_name }}</p>
+    {% endif %}
+    {% if product %}
+        <h2>Результат поиска:</h2>
+        <p>{{ product }}</p>
+    {% endif %}
+{% endblock %}
